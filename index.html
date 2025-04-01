@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>TKcop's Portfolio</title>
+    <title>TKcop - Connect With Me</title>
     <style>
         :root {
             --primary-color: #007bff;
@@ -124,7 +124,6 @@
              text-decoration: none;
         }
 
-
         .nav-links {
             list-style: none;
             display: flex;
@@ -173,7 +172,6 @@
          body.dark-theme #home {
              background: linear-gradient(45deg, rgba(255, 140, 0, 0.1), rgba(42, 42, 62, 0.3));
          }
-
 
         #home h1 {
             font-size: 3.5rem;
@@ -233,122 +231,54 @@
              transition: border-color var(--transition-speed) ease;
          }
 
-        .skills-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
-            gap: 20px;
-            margin-top: 20px;
-        }
-
-        .skill-item {
-            background-color: var(--card-bg);
-            padding: 20px;
-            border-radius: var(--card-radius);
-            text-align: center;
-            box-shadow: var(--card-shadow);
-            border: 1px solid var(--border-color);
-            transition: transform var(--transition-speed) ease, box-shadow var(--transition-speed) ease, background-color var(--transition-speed) ease, border-color var(--transition-speed) ease;
-        }
-
-        .skill-item:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
-        }
-
-        .skill-item i {
-            font-size: 2.5rem;
-            margin-bottom: 10px;
-            color: var(--accent-color);
-        }
-
-        .projects-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 30px;
-            margin-top: 30px;
-        }
-
-        .project-card {
-            background-color: var(--card-bg);
-            border-radius: var(--card-radius);
-            overflow: hidden;
-            box-shadow: var(--card-shadow);
-            border: 1px solid var(--border-color);
-            transition: transform var(--transition-speed) ease, box-shadow var(--transition-speed) ease, background-color var(--transition-speed) ease, border-color var(--transition-speed) ease;
-            display: flex;
-            flex-direction: column;
-        }
-
-        .project-card:hover {
-            transform: scale(1.03);
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
-        }
-
-        .project-card img {
-            width: 100%;
-            height: 200px;
-            object-fit: cover;
-        }
-
-        .project-card-content {
-            padding: 20px;
-            flex-grow: 1;
-            display: flex;
-            flex-direction: column;
-        }
-        .project-card-content h3 {
-             margin-bottom: 10px;
-        }
-
-        .project-card-links {
-            margin-top: auto;
-            padding-top: 15px;
-        }
-
-        .project-card-links a {
-            margin-right: 10px;
-            padding: 5px 10px;
-            border: 1px solid var(--accent-color);
-            border-radius: 4px;
-            transition: background-color var(--transition-speed) ease, color var(--transition-speed) ease;
-        }
-
-        .project-card-links a:hover {
-            background-color: var(--accent-color);
-            color: var(--card-bg);
-            text-decoration: none;
-        }
-
-        #contact {
+        #connect {
             text-align: center;
         }
 
-        .contact-links {
+        .connect-links {
             margin-top: 30px;
             display: flex;
             justify-content: center;
+            align-items: center; /* Align items vertically */
             gap: 25px;
             flex-wrap: wrap;
         }
 
-        .contact-links a {
+        .connect-links a, .connect-links span {
             font-size: 1.2rem;
             padding: 10px 20px;
             border: 2px solid var(--accent-color);
             border-radius: 25px;
             transition: background-color var(--transition-speed) ease, color var(--transition-speed) ease, transform var(--transition-speed) ease;
+            display: inline-block; /* Ensure spans behave like links */
         }
 
-        .contact-links a:hover {
+        /* Style only the actual links for hover effects */
+        .connect-links a:hover {
             background-color: var(--accent-color);
             color: var(--bg-color);
             text-decoration: none;
             transform: translateY(-3px);
         }
 
+        /* Specific style for Discord text if needed */
+        .discord-info {
+            background-color: var(--card-bg); /* Match theme background */
+            color: var(--text-color); /* Match theme text */
+            cursor: default; /* Indicate it's not clickable like others */
+            border-color: var(--secondary-color); /* Use a different border */
+            font-weight: bold;
+        }
+        .discord-info:hover {
+            transform: none; /* Prevent hover transform */
+            background-color: var(--card-bg); /* Keep background on hover */
+            color: var(--text-color); /* Keep text color on hover */
+        }
+
+
         .surprise-button {
             display: inline-block;
-            margin-top: 20px;
+            margin-top: 40px; /* More space above */
             padding: 12px 25px;
             background-color: #ff6347;
             color: white;
@@ -380,7 +310,6 @@
             50% { background-color: #ff6347; }
             100% { background-color: var(--bg-color); }
         }
-
 
         footer {
             text-align: center;
@@ -424,7 +353,6 @@
                  top: 110px;
              }
 
-
             #about .container {
                 flex-direction: column;
                 text-align: center;
@@ -433,13 +361,12 @@
                  margin-top: 30px;
              }
 
-            .projects-grid {
-                grid-template-columns: 1fr;
-            }
-
-             .skills-grid {
-                 grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
-                 gap: 15px;
+             .connect-links {
+                 gap: 15px; /* Less gap on smaller screens */
+             }
+             .connect-links a, .connect-links span {
+                 padding: 8px 15px;
+                 font-size: 1.1rem;
              }
         }
 
@@ -453,6 +380,13 @@
                  padding: 6px 10px;
                  font-size: 0.9rem;
              }
+             .connect-links a, .connect-links span {
+                 font-size: 1rem;
+             }
+             .surprise-button {
+                 font-size: 1rem;
+                 padding: 10px 20px;
+             }
          }
 
     </style>
@@ -461,13 +395,11 @@
 
     <nav class="navbar">
         <div class="container">
-            <a href="#home" class="nav-logo">[Your Name]</a>
+            <a href="#home" class="nav-logo">TKcop</a>
             <ul class="nav-links">
                 <li><a href="#home">Home</a></li>
                 <li><a href="#about">About</a></li>
-                <li><a href="#skills">Skills</a></li>
-                <li><a href="#projects">Projects</a></li>
-                <li><a href="#contact">Contact</a></li>
+                <li><a href="#connect">Connect</a></li>
             </ul>
         </div>
     </nav>
@@ -476,9 +408,9 @@
 
     <section id="home">
         <div class="container reveal">
-            <h1>Hi, I'm [Your Name]</h1>
-            <p>[Your Title / Short Catchphrase - e.g., Creative Web Developer]</p>
-            <a href="#projects" class="cta-button" style="margin-top: 20px; padding: 10px 20px; background-color: var(--accent-color); color: white; border-radius: 5px; transition: background-color var(--transition-speed) ease;">View My Work</a>
+            <h1>TKcop</h1>
+            <p>Content Creator / Gamer / Rec Room Enthusiast</p> {/* Adjust this subtitle as needed! */}
+            <a href="#connect" class="cta-button" style="margin-top: 20px; padding: 10px 20px; background-color: var(--accent-color); color: white; border-radius: 5px; transition: background-color var(--transition-speed) ease;">Connect With Me</a>
         </div>
     </section>
 
@@ -486,101 +418,30 @@
         <div class="container reveal">
              <div class="about-content">
                 <h2>About Me</h2>
-                <p>Hello! I'm [Your Name], a passionate [Your Profession/Field] based in [Your Location]. I love creating things that live on the internet, whether that be websites, applications, or anything in between.</p>
-                <p>My journey into [Your Field] started back in [Year/Event]. Since then, I've honed my skills in [Mention 1-2 Key Skills/Areas] and I'm always eager to learn more and tackle new challenges.</p>
-                <p>When I'm not coding or designing, you can find me [Your Hobby 1], [Your Hobby 2], or exploring [Something you enjoy].</p>
+                {/* !!! IMPORTANT: Replace this placeholder text with info about yourself !!! */}
+                <p>Hey! I'm TKcop. Welcome to my little corner of the internet.</p>
+                <p>I spend most of my time creating content / streaming games / hanging out in Rec Room [Describe what you do and what you enjoy here - e.g., focusing on specific games, types of content, community interaction].</p>
+                <p>Feel free to connect with me on my platforms below!</p>
             </div>
              <div class="about-image">
-                 <img src="https://via.placeholder.com/250" alt="A picture of [Your Name]">
+                 {/* Replace with a URL to your avatar or a relevant image */}
+                 <img src="https://via.placeholder.com/250/777/eee?text=Avatar" alt="TKcop Avatar">
              </div>
         </div>
     </section>
 
-    <section id="skills">
+    <section id="connect">
         <div class="container reveal">
-            <h2>My Skills</h2>
-            <div class="skills-grid">
-                <div class="skill-item reveal">
-                    <h3>HTML5</h3>
-                </div>
-                <div class="skill-item reveal">
-                    <h3>CSS3</h3>
-                </div>
-                <div class="skill-item reveal">
-                    <h3>JavaScript</h3>
-                </div>
-                <div class="skill-item reveal">
-                    <h3>React</h3>
-                </div>
-                 <div class="skill-item reveal">
-                    <h3>Node.js</h3>
-                </div>
-                 <div class="skill-item reveal">
-                    <h3>UI/UX Design</h3>
-                </div>
-                 <div class="skill-item reveal">
-                    <h3>Git & GitHub</h3>
-                </div>
-                <div class="skill-item reveal">
-                    <h3>Problem Solving</h3>
-                </div>
-            </div>
-        </div>
-    </section>
+            <h2>Connect With Me</h2>
+            <p>You can find me here:</p>
 
-    <section id="projects">
-        <div class="container reveal">
-            <h2>My Projects</h2>
-            <div class="projects-grid">
-                <div class="project-card reveal">
-                    <img src="https://via.placeholder.com/400x200/FFA07A/ffffff?text=Project+1+Screenshot" alt="Project 1 Screenshot">
-                    <div class="project-card-content">
-                        <h3>Project Title 1</h3>
-                        <p>A brief description of your project. What problem does it solve? What technologies were used?</p>
-                        <div class="project-card-links">
-                            <a href="#" target="_blank">Live Demo</a>
-                            <a href="#" target="_blank">GitHub Repo</a>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="project-card reveal">
-                    <img src="https://via.placeholder.com/400x200/20B2AA/ffffff?text=Project+2+Screenshot" alt="Project 2 Screenshot">
-                    <div class="project-card-content">
-                        <h3>Project Title 2</h3>
-                        <p>Another cool project description. Mention key features or challenges overcome.</p>
-                        <div class="project-card-links">
-                            <a href="#" target="_blank">Live Demo</a>
-                            <a href="#" target="_blank">GitHub Repo</a>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="project-card reveal">
-                    <img src="https://via.placeholder.com/400x200/778899/ffffff?text=Project+3+Screenshot" alt="Project 3 Screenshot">
-                    <div class="project-card-content">
-                        <h3>Project Title 3</h3>
-                        <p>Describe this project too! Maybe it focuses on a different technology or skill.</p>
-                         <div class="project-card-links">
-                            <a href="#" target="_blank">GitHub Repo</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section id="contact">
-        <div class="container reveal">
-            <h2>Get In Touch!</h2>
-            <p>I'm currently looking for new opportunities / open to collaborations. My inbox is always open!</p>
-            <p>Feel free to reach out via email or connect with me on social media.</p>
-
-            <div class="contact-links">
-                <a href="mailto:your.email@example.com">Email Me</a>
-                <a href="https://linkedin.com/in/yourprofile" target="_blank">LinkedIn</a>
-                <a href="https://github.com/yourusername" target="_blank">GitHub</a>
-                <a href="https://twitter.com/yourusername" target="_blank">Twitter</a>
+            <div class="connect-links">
+                 {/* Note: Discord is just text as it's a username */}
+                <span class="discord-info">Discord: tkcop</span>
+                <a href="https://x.com/Tkcop_" target="_blank">Twitter</a>
+                <a href="https://www.youtube.com/@TKcopYT" target="_blank">YouTube</a>
+                <a href="https://www.twitch.tv/tkcop" target="_blank">Twitch</a>
+                <a href="https://rec.net/user/TKcop" target="_blank">Rec Room</a>
             </div>
 
              <button class="surprise-button reveal" id="surprise-btn">Click for a surprise!</button>
@@ -589,7 +450,7 @@
 
     <footer>
         <div class="container">
-            <p>© <span id="year"></span> [Your Name]. All rights reserved.</p>
+            <p>© <span id="year"></span> TKcop. All rights reserved.</p>
         </div>
     </footer>
 
@@ -639,9 +500,9 @@
                      if (link.getAttribute('href') === `#${current}`) {
                          link.classList.add('active');
                      }
-                     if(current === '' && link.getAttribute('href') === '#home' && window.pageYOffset < sections[0].offsetTop - navHeight - 50) {
+                     if(current === '' && link.getAttribute('href') === '#home' && window.pageYOffset < (sections[0]?.offsetTop || 0) - navHeight - 50) {
                          link.classList.add('active');
-                     } else if (current === '' && window.pageYOffset < sections[0].offsetTop - navHeight - 50) {
+                     } else if (current === '' && window.pageYOffset < (sections[0]?.offsetTop || 0) - navHeight - 50) {
                            link.classList.remove('active');
                      }
                  });
