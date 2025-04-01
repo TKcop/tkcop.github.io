@@ -231,6 +231,64 @@
              transition: border-color var(--transition-speed) ease;
          }
 
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 30px;
+        }
+
+        .project-card {
+            background-color: var(--card-bg);
+            border-radius: var(--card-radius);
+            overflow: hidden;
+            box-shadow: var(--card-shadow);
+            border: 1px solid var(--border-color);
+            transition: transform var(--transition-speed) ease, box-shadow var(--transition-speed) ease, background-color var(--transition-speed) ease, border-color var(--transition-speed) ease;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .project-card:hover {
+            transform: scale(1.03);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+        }
+
+        .project-card img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+
+        .project-card-content {
+            padding: 20px;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+        }
+        .project-card-content h3 {
+             margin-bottom: 10px;
+        }
+
+        .project-card-links {
+            margin-top: auto;
+            padding-top: 15px;
+        }
+
+        .project-card-links a {
+            margin-right: 10px;
+            padding: 5px 10px;
+            border: 1px solid var(--accent-color);
+            border-radius: 4px;
+            transition: background-color var(--transition-speed) ease, color var(--transition-speed) ease;
+        }
+
+        .project-card-links a:hover {
+            background-color: var(--accent-color);
+            color: var(--card-bg);
+            text-decoration: none;
+        }
+
         #connect {
             text-align: center;
         }
@@ -239,21 +297,20 @@
             margin-top: 30px;
             display: flex;
             justify-content: center;
-            align-items: center; /* Align items vertically */
+            align-items: center;
             gap: 25px;
             flex-wrap: wrap;
         }
 
-        .connect-links a, .connect-links span {
+        .connect-links a {
             font-size: 1.2rem;
             padding: 10px 20px;
             border: 2px solid var(--accent-color);
             border-radius: 25px;
             transition: background-color var(--transition-speed) ease, color var(--transition-speed) ease, transform var(--transition-speed) ease;
-            display: inline-block; /* Ensure spans behave like links */
+            display: inline-block;
         }
 
-        /* Style only the actual links for hover effects */
         .connect-links a:hover {
             background-color: var(--accent-color);
             color: var(--bg-color);
@@ -261,24 +318,9 @@
             transform: translateY(-3px);
         }
 
-        /* Specific style for Discord text if needed */
-        .discord-info {
-            background-color: var(--card-bg); /* Match theme background */
-            color: var(--text-color); /* Match theme text */
-            cursor: default; /* Indicate it's not clickable like others */
-            border-color: var(--secondary-color); /* Use a different border */
-            font-weight: bold;
-        }
-        .discord-info:hover {
-            transform: none; /* Prevent hover transform */
-            background-color: var(--card-bg); /* Keep background on hover */
-            color: var(--text-color); /* Keep text color on hover */
-        }
-
-
         .surprise-button {
             display: inline-block;
-            margin-top: 40px; /* More space above */
+            margin-top: 40px;
             padding: 12px 25px;
             background-color: #ff6347;
             color: white;
@@ -361,10 +403,14 @@
                  margin-top: 30px;
              }
 
-             .connect-links {
-                 gap: 15px; /* Less gap on smaller screens */
+             .projects-grid {
+                 grid-template-columns: 1fr;
              }
-             .connect-links a, .connect-links span {
+
+             .connect-links {
+                 gap: 15px;
+             }
+             .connect-links a {
                  padding: 8px 15px;
                  font-size: 1.1rem;
              }
@@ -380,7 +426,7 @@
                  padding: 6px 10px;
                  font-size: 0.9rem;
              }
-             .connect-links a, .connect-links span {
+             .connect-links a {
                  font-size: 1rem;
              }
              .surprise-button {
@@ -399,6 +445,7 @@
             <ul class="nav-links">
                 <li><a href="#home">Home</a></li>
                 <li><a href="#about">About</a></li>
+                <li><a href="#projects">Projects</a></li>
                 <li><a href="#connect">Connect</a></li>
             </ul>
         </div>
@@ -409,7 +456,7 @@
     <section id="home">
         <div class="container reveal">
             <h1>TKcop</h1>
-            <p>Content Creator / Gamer / Rec Room Enthusiast</p> {/* Adjust this subtitle as needed! */}
+            <p>Content Creator / Gamer / Rec Room Enthusiast</p>
             <a href="#connect" class="cta-button" style="margin-top: 20px; padding: 10px 20px; background-color: var(--accent-color); color: white; border-radius: 5px; transition: background-color var(--transition-speed) ease;">Connect With Me</a>
         </div>
     </section>
@@ -418,15 +465,33 @@
         <div class="container reveal">
              <div class="about-content">
                 <h2>About Me</h2>
-                {/* !!! IMPORTANT: Replace this placeholder text with info about yourself !!! */}
                 <p>Hey! I'm TKcop. Welcome to my little corner of the internet.</p>
-                <p>I spend most of my time creating content / streaming games / hanging out in Rec Room [Describe what you do and what you enjoy here - e.g., focusing on specific games, types of content, community interaction].</p>
-                <p>Feel free to connect with me on my platforms below!</p>
+                <p>I spend most of my time creating content, streaming games, hanging out in Rec Room, and occasionally building fun web projects like the one below!</p>
+                <p>Feel free to check out my work and connect with me on my platforms!</p>
             </div>
              <div class="about-image">
-                 {/* Replace with a URL to your avatar or a relevant image */}
-                 <img src="https://via.placeholder.com/250/777/eee?text=Avatar" alt="TKcop Avatar">
+                 <img src="https://tkcop.github.io/Images/Pfp.jpg" alt="TKcop Profile Picture">
              </div>
+        </div>
+    </section>
+
+    <section id="projects">
+        <div class="container reveal">
+            <h2>My Projects</h2>
+            <div class="projects-grid">
+                <div class="project-card reveal">
+                    <img src="https://via.placeholder.com/400x200/FF0000/ffffff?text=Pokédex+Screenshot" alt="Pokédex Project Screenshot">
+                    <div class="project-card-content">
+                        <h3>1-100 Pokédex</h3>
+                        <p>An interactive Pokédex featuring the first 100 Pokémon. Built with HTML, CSS, and JavaScript.</p>
+                        <div class="project-card-links">
+                            <a href="https://tkcop.github.io/Pokedex/" target="_blank">Live Demo</a>
+                            
+                        </div>
+                    </div>
+                </div>
+                
+            </div>
         </div>
     </section>
 
@@ -436,12 +501,11 @@
             <p>You can find me here:</p>
 
             <div class="connect-links">
-                 {/* Note: Discord is just text as it's a username */}
-                <span class="discord-info">Discord: tkcop</span>
                 <a href="https://x.com/Tkcop_" target="_blank">Twitter</a>
                 <a href="https://www.youtube.com/@TKcopYT" target="_blank">YouTube</a>
                 <a href="https://www.twitch.tv/tkcop" target="_blank">Twitch</a>
                 <a href="https://rec.net/user/TKcop" target="_blank">Rec Room</a>
+                <a href="https://github.com/TKcop" target="_blank">GitHub</a>
             </div>
 
              <button class="surprise-button reveal" id="surprise-btn">Click for a surprise!</button>
