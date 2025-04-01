@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>TKcop Portfolio</title>
+    <title>TKcop's Portfolio</title>
     <style>
         :root {
             --primary-color: #007bff;
@@ -156,6 +156,8 @@
 
         section:last-of-type {
             border-bottom: none;
+            min-height: auto; /* Allow connect section to be shorter */
+            padding-bottom: 80px; /* Ensure space before footer */
         }
 
         #home {
@@ -258,6 +260,7 @@
             width: 100%;
             height: 200px;
             object-fit: cover;
+            background-color: var(--secondary-color); /* Fallback bg for image area */
         }
 
         .project-card-content {
@@ -316,41 +319,6 @@
             color: var(--bg-color);
             text-decoration: none;
             transform: translateY(-3px);
-        }
-
-        .surprise-button {
-            display: inline-block;
-            margin-top: 40px;
-            padding: 12px 25px;
-            background-color: #ff6347;
-            color: white;
-            border: none;
-            border-radius: 5px;
-            font-size: 1.1rem;
-            cursor: pointer;
-            transition: background-color var(--transition-speed) ease, transform 0.1s ease;
-        }
-
-        .surprise-button:active {
-            transform: scale(0.95);
-        }
-
-        .body-flash {
-            animation: flash 0.4s ease-out;
-        }
-
-        @keyframes flash {
-            0% { background-color: var(--bg-color); }
-            50% { background-color: #ffdd57; }
-            100% { background-color: var(--bg-color); }
-        }
-        body.dark-theme .body-flash {
-             animation: flash-dark 0.4s ease-out;
-        }
-        @keyframes flash-dark {
-             0% { background-color: var(--bg-color); }
-            50% { background-color: #ff6347; }
-            100% { background-color: var(--bg-color); }
         }
 
         footer {
@@ -429,10 +397,6 @@
              .connect-links a {
                  font-size: 1rem;
              }
-             .surprise-button {
-                 font-size: 1rem;
-                 padding: 10px 20px;
-             }
          }
 
     </style>
@@ -466,7 +430,7 @@
              <div class="about-content">
                 <h2>About Me</h2>
                 <p>Hey! I'm TKcop. Welcome to my little corner of the internet.</p>
-                <p>I spend most of my time creating content, streaming games, hanging out in Rec Room, and occasionally building fun web projects like the one below!</p>
+                <p>I spend most of my time having showerthoughts.</p>
                 <p>Feel free to check out my work and connect with me on my platforms!</p>
             </div>
              <div class="about-image">
@@ -483,14 +447,12 @@
                     <img src="https://tkcop.github.io/Images/Pfp.jpg" alt="Pokédex Project Screenshot">
                     <div class="project-card-content">
                         <h3>1-100 Pokédex</h3>
-                        <p>An interactive Pokédex featuring the first 100 Pokémon. Built with HTML, CSS, and JavaScript.</p>
+                        <p>An interactive Pokédex featuring the first 100 Pokémon. This demistrates the capabilites Gemini 2.5 Pro Experimental AI. (Built with HTML, CSS, and JavaScript.)</p>
                         <div class="project-card-links">
                             <a href="https://tkcop.github.io/Pokedex/" target="_blank">Live Demo</a>
-                            
                         </div>
                     </div>
                 </div>
-                
             </div>
         </div>
     </section>
@@ -507,8 +469,6 @@
                 <a href="https://rec.net/user/TKcop" target="_blank">Rec Room</a>
                 <a href="https://github.com/TKcop" target="_blank">GitHub</a>
             </div>
-
-             <button class="surprise-button reveal" id="surprise-btn">Click for a surprise!</button>
         </div>
     </section>
 
@@ -590,15 +550,6 @@
 
             revealElements.forEach(el => {
                 revealObserver.observe(el);
-            });
-
-
-            const surpriseButton = document.getElementById('surprise-btn');
-            surpriseButton.addEventListener('click', () => {
-                document.body.classList.add('body-flash');
-                setTimeout(() => {
-                    document.body.classList.remove('body-flash');
-                }, 400);
             });
 
              const themeToggleButton = document.getElementById('theme-toggle');
