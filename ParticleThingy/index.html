@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cosmic Particle Weaver</title>
+    <style>
+        /* Basic Reset & Styling */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html, body {
+            height: 100%;
+            width: 100%;
+            overflow: hidden; /* Prevent scrollbars */
+            background: #00000a; /* Dark space background */
+            color: #eee;
+            font-family: 'Arial', sans-serif;
+        }
+
+        #particleCanvas {
+            display: block; /* Remove default inline spacing */
+            position: absolute;
+            top: 0;
+            left: 0;
+            z-index: 1; /* Below the info text */
+        }
+
+        .info {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            z-index: 2; /* Above the canvas */
+            padding: 10px 15px;
+            background-color: rgba(0, 0, 0, 0.5);
+            border-radius: 5px;
+            font-size: 14px;
+            max-width: 300px;
+            pointer-events: none; /* Allow clicks to pass through to canvas */
+            user-select: none; /* Prevent text selection */
+        }
+
+        .info h1 {
+            font-size: 1.2em;
+            margin-bottom: 5px;
+            color: #00f2ff;
+        }
+
+        .info p {
+            font-size: 0.9em;
+            line-height: 1.4;
+        }
+         /* Subtle pulse animation for the title */
+        @keyframes pulse {
+            0% { text-shadow: 0 0 5px #00f2ff; }
+            50% { text-shadow: 0 0 15px #00f2ff, 0 0 25px #00f2ff; }
+            100% { text-shadow: 0 0 5px #00f2ff; }
+        }
+        .info h1 {
+            animation: pulse 3s infinite ease-in-out;
+        }
+    </style>
+</head>
+<body>
+    <canvas id="particleCanvas"></canvas>
+    <div class="info">
+        <h1>Cosmic Particle Weaver</h1>
+        <p>Move your mouse or touch the screen to attract the particles. Click or tap to temporarily push them away.</p>
+    </div>
+
+    <script>
+        const canvas = document.getElementById('particleCanvas');
+        const ctx = canvas.getContext('2d');
+
+        let width = canvas.width = window.innerWidth;
+        let height = canvas.height = window.innerHeight;
+
+        let particles = [];
+        const PARTICLE_COUNT = Math.min(150, Math.floor(width * height / 15000)); // Adjust particle count based on screen area
+        const MAX_SPEED = 0.8;
+        const CONNECTION_DISTANCE = 100;
+        const INTERACTION_RADIUS = 150;
+        const MOUSE_ATTRACTION_FORCE = 0.005;
+        const MOUSE_REPEL_FORCE = -0.1; // Stronger repel force
+
+        let mouse = {
+            x: null,
+            y: null,
+            isDown: false
+        };
+
+        let hue = 0; // For color cycling
+
+        // --- Particle Class ---
+        class Particle {
+            constructor() {
+                this.x = Math.random() * width;
+                this.y = Math.random() * height;
+                this.vx = (Math.random() - 0.5) * MAX_SPEED * 2;
+                this.vy = (Math.random() - 0.5) * MAX_SPEED * 2;
+                this.radius = Math.random() * 1.5 + 1; // Size variation
+                this.baseColor = `hsl(${hue % 360}, 100%, 70%)`; // Start with current hue
+            }
+
+            update(deltaTime = 1) { // deltaTime for potential frame-rate independence (basic implementation)
+                // Mouse interaction
+                if (mouse.x !== null && mouse.y !== null) {
+                    const dx = this.x - mouse.x;
+                    const dy = this.y - mouse.y;
+                    const distSq = dx * dx + dy * dy; // Use squared distance for performance
+                    const interactionRadiusSq = INTERACTION_RADIUS * INTERACTION_RADIUS;
+
+                    if (distSq < interactionRadiusSq) {
+                        const dist = Math.sqrt(distSq);
+                        const forceDirectionX = dx / dist;
+                        const forceDirectionY = dy / dist;
+                        const forceFactor = (1 - dist / INTERACTION_RADIUS); // Stronger force closer to center
+
+                        let forceMagnitude = mouse.isDown ? MOUSE_REPEL_FORCE : MOUSE_ATTRACTION_FORCE;
+
+                        // Apply force (more noticeable acceleration/deceleration)
+                        this.vx += forceDirectionX * forceMagnitude * forceFactor * 50 * deltaTime;
+                        this.vy += forceDirectionY * forceMagnitude * forceFactor * 50 * deltaTime;
+                    }
+                }
+
+                // Apply velocity damping/friction
+                this.vx *= 0.98;
+                this.vy *= 0.98;
+
+                 // Limit speed
+                const speed = Math.sqrt(this.vx * this.vx + this.vy * this.vy);
+                if (speed > MAX_SPEED) {
+                    this.vx = (this.vx / speed) * MAX_SPEED;
+                    this.vy = (this.vy / speed) * MAX_SPEED;
+                }
+
+
+                // Update position
+                this.x += this.vx * deltaTime;
+                this.y += this.vy * deltaTime;
+
+                // Boundary check (wrap around screen)
+                if (this.x < -this.radius) this.x = width + this.radius;
+                if (this.x > width + this.radius) this.x = -this.radius;
+                if (this.y < -this.radius) this.y = height + this.radius;
+                if (this.y > height + this.radius) this.y = -this.radius;
+
+                 // Update color slightly based on velocity or just time
+                 // Let's use the global hue for consistency across particles for now
+                 this.baseColor = `hsl(${(hue + Math.random() * 10 - 5) % 360}, 100%, 70%)`;
+
+            }
+
+            draw() {
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
+                ctx.fillStyle = this.baseColor;
+
+                // Add a subtle glow
+                ctx.shadowColor = this.baseColor;
+                ctx.shadowBlur = 8;
+
+                ctx.fill();
+
+                // Reset shadow for other drawings (like lines)
+                ctx.shadowBlur = 0;
+            }
+        }
+
+        // --- Initialization ---
+        function init() {
+            particles = [];
+            for (let i = 0; i < PARTICLE_COUNT; i++) {
+                particles.push(new Particle());
+            }
+        }
+
+        // --- Drawing Connections ---
+        function drawConnections() {
+            for (let i = 0; i < particles.length; i++) {
+                for (let j = i + 1; j < particles.length; j++) { // Start j from i+1 to avoid duplicates and self-connection
+                    const dx = particles[i].x - particles[j].x;
+                    const dy = particles[i].y - particles[j].y;
+                    const distanceSq = dx * dx + dy * dy; // Use squared distance
+
+                    if (distanceSq < CONNECTION_DISTANCE * CONNECTION_DISTANCE) {
+                        const distance = Math.sqrt(distanceSq);
+                        const opacity = 1 - (distance / CONNECTION_DISTANCE); // Fade line with distance
+
+                        // Use the color of one of the particles or a mix
+                        // Let's use particle i's color for simplicity
+                        const color = particles[i].baseColor.replace('70%', '50%'); // Make lines slightly dimmer
+
+                        ctx.strokeStyle = `${color.slice(0, -1)}, ${opacity * 0.6})`; // hsla format with calculated opacity
+                        ctx.lineWidth = 0.5; // Thin lines
+                        ctx.beginPath();
+                        ctx.moveTo(particles[i].x, particles[i].y);
+                        ctx.lineTo(particles[j].x, particles[j].y);
+                        ctx.stroke();
+                    }
+                }
+            }
+        }
+
+        // --- Animation Loop ---
+        let lastTime = 0;
+        function animate(timestamp) {
+            const deltaTime = (timestamp - lastTime) / 16.667; // Normalize delta time (optional, ~1 for 60fps)
+            lastTime = timestamp;
+
+            // Clear canvas with a subtle trail effect
+            ctx.fillStyle = 'rgba(0, 0, 10, 0.15)'; // Dark blue with low alpha for trails
+            ctx.fillRect(0, 0, width, height);
+
+            // Update global hue for color cycling
+            hue = (hue + 0.2 * deltaTime) % 360; // Slow color shift
+
+            // Update and draw particles
+            particles.forEach(p => {
+                p.update(deltaTime);
+                p.draw();
+            });
+
+            // Draw connections
+            drawConnections();
+
+            requestAnimationFrame(animate); // Loop
+        }
+
+        // --- Event Listeners ---
+        function handleMouseMove(event) {
+            mouse.x = event.clientX;
+            mouse.y = event.clientY;
+        }
+
+        function handleTouchMove(event) {
+            event.preventDefault(); // Prevent scrolling
+            if (event.touches.length > 0) {
+                mouse.x = event.touches[0].clientX;
+                mouse.y = event.touches[0].clientY;
+            }
+        }
+
+        function handleMouseDown() {
+            mouse.isDown = true;
+        }
+
+        function handleMouseUp() {
+            mouse.isDown = false;
+        }
+
+         function handleTouchStart(event) {
+             if (event.touches.length > 0) {
+                mouse.x = event.touches[0].clientX; // Update position on touch start too
+                mouse.y = event.touches[0].clientY;
+                mouse.isDown = true;
+             }
+        }
+
+        function handleTouchEnd() {
+             mouse.isDown = false;
+             // Optional: Keep mouse position where finger left off, or reset
+             // mouse.x = null;
+             // mouse.y = null;
+        }
+
+
+        function handleResize() {
+            width = canvas.width = window.innerWidth;
+            height = canvas.height = window.innerHeight;
+            // Re-initialize or adjust particle positions if needed
+            // For simplicity, we'll just let them adapt, but re-init might be better
+             console.log("Resized. New particle count:", PARTICLE_COUNT);
+             // Optional: Re-calculate particle count and re-init
+             // PARTICLE_COUNT = Math.min(150, Math.floor(width * height / 15000));
+             // init();
+        }
+
+        // Attach listeners
+        window.addEventListener('mousemove', handleMouseMove);
+        window.addEventListener('mousedown', handleMouseDown);
+        window.addEventListener('mouseup', handleMouseUp);
+
+        window.addEventListener('touchmove', handleTouchMove, { passive: false }); // passive: false to allow preventDefault
+        window.addEventListener('touchstart', handleTouchStart, { passive: false });
+        window.addEventListener('touchend', handleTouchEnd);
+        window.addEventListener('touchcancel', handleTouchEnd); // Handle cancellation too
+
+        window.addEventListener('resize', handleResize);
+
+         // Initial setup
+        init();
+        animate(0); // Start the animation loop
+
+    </script>
+</body>
+</html>
