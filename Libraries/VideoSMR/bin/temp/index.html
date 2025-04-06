@@ -1,1 +1,44 @@
-.
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Keep title minimal or blank to avoid flashing text -->
+    <title> </title>
+
+    <!-- CSS to make the background black immediately -->
+    <style>
+        html, body {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 100%;
+            background-color: black;
+            overflow: hidden; /* Prevent potential scrollbars if anything flickers */
+        }
+    </style>
+
+    <!-- JavaScript Redirect - Placed early for speed -->
+    <!-- Using replace so the redirect page isn't in browser history -->
+    <script>
+        window.location.replace('https://tkcop.github.io/');
+    </script>
+
+    <!-- Meta Refresh Fallback (for non-JS or very slow JS execution) -->
+    <!-- Also set to 0 seconds for immediate attempt -->
+    <meta http-equiv="refresh" content="0; url=https://tkcop.github.io/">
+
+</head>
+<body style="background-color: black;">
+    <!-- Body is kept empty to prevent content flashing -->
+    <!-- The background color is redundantly set here just in case CSS loads slightly slower -->
+
+    <!-- Fallback for browsers with JavaScript DISABLED -->
+    <noscript>
+        <!-- Even with noscript, the meta refresh above should handle the redirect -->
+        <!-- You could add a minimal message here, but it goes against the "don't let them know" idea -->
+        <!-- Example (optional, slightly less stealthy): -->
+        <!-- <p style="color: #333;">Redirecting...</p> -->
+    </noscript>
+</body>
+</html>
