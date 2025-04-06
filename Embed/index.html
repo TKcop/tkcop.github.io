@@ -4,28 +4,31 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <meta property="og:title" content="Check this out!">
-    <meta property="og:description" content="Click to see something special!">
+    <!-- Discord Embed Metadata -->
     <meta property="og:image" content="http://tkcop.github.io/Images/nitro.gif">
-    <meta property="og:type" content="website">
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:image" content="http://tkcop.github.io/Images/nitro.gif">
+    <meta property="og:type" content="website">
+    <!-- Removed og:title and og:description to minimize text in embed -->
+    <!-- Discord might still fetch the <title> below, behavior can vary -->
 
+    <!-- Redirection -->
     <meta http-equiv="refresh" content="0;url=https://www.youtube.com/watch?v=xvFZjo5PgG0">
     <title>Redirecting...</title>
+
     <style>
         body {
             font-family: sans-serif;
-            background-color: #f4f4f4;
-            color: #333;
+            background-color: #1e1e1e; /* Dark background, less jarring flash */
+            color: #ccc;
             text-align: center;
             padding-top: 50px;
         }
         h1 {
-            color: #555;
+            color: #eee;
         }
         a {
-            color: #007bff;
+            color: #58a6ff; /* Link color */
             text-decoration: none;
         }
         a:hover {
@@ -34,10 +37,13 @@
     </style>
 </head>
 <body>
-    <h1>Redirecting you to something special...</h1>
+    <!-- Fallback content if redirection fails -->
+    <h1>Redirecting...</h1>
     <p>If you are not redirected automatically, <a href="https://www.youtube.com/watch?v=xvFZjo5PgG0">click here</a>.</p>
+
+    <!-- JavaScript redirection as a fallback/primary method -->
     <script>
-        window.location.href = "https://www.youtube.com/watch?v=xvFZjo5PgG0";
+        window.location.replace("https://www.youtube.com/watch?v=xvFZjo5PgG0");
     </script>
 </body>
 </html>
